@@ -147,6 +147,5 @@ class TestSSM:
 
     @pytest.mark.aws_validated
     def test_describe_instance_information(self, ssm_client):
-        with pytest.raises(ssm_client.exceptions.ClientError) as exc:
-            ssm_client.describe_instance_information()
-        assert "not yet implemented" in exc.value.response["Error"]["Message"]
+        response = ssm_client.describe_instance_information()
+        assert response['ResponseMetadata']['HTTPStatusCode'] == 200

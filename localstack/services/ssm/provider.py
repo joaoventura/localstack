@@ -10,6 +10,10 @@ from localstack.aws.api.ssm import (
     DeleteParameterResult,
     GetParameterResult,
     GetParametersResult,
+    InstanceInformationFilterList,
+    InstanceInformationList,
+    InstanceInformationStringFilterList,
+    Integer,
     LabelParameterVersionResult,
     ParameterLabelList,
     ParameterName,
@@ -19,6 +23,7 @@ from localstack.aws.api.ssm import (
     PutParameterRequest,
     PutParameterResult,
     SsmApi,
+    String,
 )
 from localstack.services.moto import call_moto, call_moto_with_request
 from localstack.utils.aws import aws_stack
@@ -119,6 +124,16 @@ class SsmProvider(SsmApi, ABC):
     ) -> LabelParameterVersionResult:
         SsmProvider._notify_event_subscribers(name, "LabelParameterVersion")
         return LabelParameterVersionResult(**call_moto(context))
+
+    def describe_instance_information(
+        self, 
+        context: RequestContext,
+        filters: InstanceInformationStringFilterList = None,
+        instance_information_filter_list: InstanceInformationFilterList = None,
+        max_results: Integer = None,
+        next_token: String = None,
+    ) -> InstanceInformationList:
+        return None
 
     # utility methods below
 
